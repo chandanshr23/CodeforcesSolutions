@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class DreamoonAndStars476A {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+
+        int minMoves = (n + 1) / 2; // ceil(n/2)
+
+        for (int moves = minMoves; moves <= n; moves++) {
+            if (moves % m == 0) {
+                System.out.println(moves);
+                return;
+            }
+        }
+
+        System.out.println(-1);
+    }
+}
