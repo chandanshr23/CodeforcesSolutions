@@ -1,7 +1,8 @@
+package com.codeforces.code;
 
 import java.util.*;
 
-public class Main{
+public class kRounding858A{
     public static void main(String args[]){
         Scanner scan=new Scanner(System.in);
        
@@ -13,7 +14,7 @@ public class Main{
         		x*=2;
         	}
         	else if(x%5!=0) {
-        		x*=2;
+        		x*=5;
         	}
         	k--;
         }
