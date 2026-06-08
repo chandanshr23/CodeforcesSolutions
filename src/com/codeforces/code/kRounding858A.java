@@ -1,26 +1,28 @@
 package com.codeforces.code;
-
 import java.util.*;
 
-public class kRounding858A{
-    public static void main(String args[]){
-        Scanner scan=new Scanner(System.in);
-       
-        long n=scan.nextLong();
-        long k=scan.nextLong();
-        long x=n;
-        while(k>0 && x%10!=0) {
-        	if(x%2!=0) {
-        		x*=2;
-        	}
-        	else if(x%5!=0) {
-        		x*=5;
-        	}
-        	k--;
+public class kRounding858A {
+    static long gcd(long a, long b) {
+        while (b != 0) {
+            long t = a % b;
+            a = b;
+            b = t;
         }
-        while(k-->0) {
-        	x*=10;
+        return a;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        long n = sc.nextLong();
+        long k = sc.nextLong();
+
+        long tenPow = 1;
+        for (int i = 0; i < k; i++) {
+            tenPow *= 10;
         }
-        System.out.println(x);
+
+        long ans = n / gcd(n, tenPow) * tenPow;
+        System.out.println(ans);
     }
 }
