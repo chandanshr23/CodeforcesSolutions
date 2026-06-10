@@ -1,6 +1,8 @@
+package com.codeforces.code;
+
 import java.util.*;
 
-public class Main {
+public class Fashionablee1369A {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
