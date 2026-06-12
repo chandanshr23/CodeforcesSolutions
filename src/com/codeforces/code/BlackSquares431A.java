@@ -1,6 +1,8 @@
-import java.util.*;
+package com.codeforces.code;
 
-public class Main {
+import java.util.Scanner;
+
+public class BlackSquares431A {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int[] a=new int[4];
