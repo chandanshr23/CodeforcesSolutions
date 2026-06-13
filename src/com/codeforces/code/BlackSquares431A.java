@@ -16,4 +16,4 @@ public class BlackSquares431A {
         }
         System.out.println(ans);
     }
-}
+}	
