@@ -4,28 +4,13 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String s = sc.next();
-        String t = sc.next();
-
-        char[] arr = s.toCharArray();
-
-        int i = arr.length - 1;
-
-        while (i >= 0) {
-            if (arr[i] == 'z') {
-                arr[i] = 'a';
-                i--;
-            } else {
-                arr[i]++;
-                break;
-            }
+        int[] x = new int[3];
+        for (int i = 0; i < 3; i++) {
+            x[i] = sc.nextInt();
         }
 
-        String next = new String(arr);
+        Arrays.sort(x);
 
-        if (next.equals(t))
-            System.out.println("No such string");
-        else
-            System.out.println(next);
+        System.out.println(x[2] - x[0]);
     }
 }
