@@ -1,9 +1,8 @@
 package com.codeforces.code;
 
-
 import java.util.*;
 
-public class AdjacentReplcaement1006A {
+public class AdjacentReplacement1006A {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -13,11 +12,9 @@ public class AdjacentReplcaement1006A {
             int x = sc.nextInt();
 
             if (x % 2 == 0)
-                System.out.print((x - 1) + " ");
-            else
-                System.out.print(x + " ");
-        }
+                x--;
 
-        sc.close();
+            System.out.print(x + " ");
+        }
     }
 }
