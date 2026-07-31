@@ -1,0 +1,33 @@
+package com.codeforces.code;
+
+import java.io.*;
+import java.util.*;
+
+public class Games278A {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(br.readLine());
+
+        int[] home = new int[n];
+        int[] away = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            home[i] = Integer.parseInt(st.nextToken());
+            away[i] = Integer.parseInt(st.nextToken());
+        }
+
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i != j && home[i] == away[j]) {
+                    ans++;
+                }
+            }
+        }
+
+        System.out.println(ans);
+    }
+}
