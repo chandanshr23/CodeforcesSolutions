@@ -2,65 +2,80 @@ package com.codeforces.code;
 import java.io.*;
 import java.util.*;
 
+import java.util.*;
+import java.io.*;
+
 public class AnnoyingTheGhost2237B {
+    static int[] bit;
+    static int n;
 
-    static final long INF = (long) 4e18;
+    static void update(int pos) {
+        pos++; // 1-indexed
+        for (; pos <= n; pos += pos & (-pos)) bit[pos]++;
+    }
 
-    public static void main(String[] args) throws Exception {
+    static long query(int pos) {
+        pos++; // 1-indexed
+        long s = 0;
+        for (; pos > 0; pos -= pos & (-pos)) s += bit[pos];
+        return s;
+    }
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StreamTokenizer st = new StreamTokenizer(br);
+        st.nextToken();
+        int t = (int) st.nval;
+        StringBuilder sb = new StringBuilder();
 
-        int T = Integer.parseInt(br.readLine());
+        while (t-- > 0) {
+            st.nextToken();
+            n = (int) st.nval;
 
-        while (T-- > 0) {
+            long[] a = new long[n];
+            long[] b = new long[n];
+            for (int i = 0; i < n; i++) { st.nextToken(); a[i] = (long) st.nval; }
+            for (int i = 0; i < n; i++) { st.nextToken(); b[i] = (long) st.nval; }
 
-            int n = Integer.parseInt(br.readLine());
-
-            long[] a = new long[n + 1];
-            long[] b = new long[n + 1];
-
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int i = 1; i <= n; i++)
-                a[i] = Long.parseLong(st.nextToken());
-
-            st = new StringTokenizer(br.readLine());
-            for (int i = 1; i <= n; i++)
-                b[i] = Long.parseLong(st.nextToken());
-
-            long[][] dp = new long[n + 1][n + 1];
-
-            for (int i = 0; i <= n; i++)
-                Arrays.fill(dp[i], INF);
-
-            for (int j = 1; j <= n; j++) {
-                if (a[1] <= b[j])
-                    dp[1][j] = j - 1;
+            long[] as = a.clone();
+            Arrays.sort(as);
+            boolean feasible = true;
+            for (int k = 0; k < n; k++) {
+                if (as[k] > b[k]) { feasible = false; break; }
             }
 
-            for (int i = 2; i <= n; i++) {
-                long best = INF;
+            if (!feasible) {
+                sb.append(-1).append('\n');
+                continue;
+            }
 
-                for (int j = 1; j <= n; j++) {
+            Integer[] order = new Integer[n];
+            for (int i = 0; i < n; i++) order[i] = i;
+            Arrays.sort(order, (x, y) -> Long.compare(a[x], a[y]));
 
-                    if (best != INF)
-                        best = Math.min(best, dp[i - 1][j]);
+            PriorityQueue<Integer> heap = new PriorityQueue<>();
+            int[] orig = new int[n];
+            int ptr = 0;
 
-                    if (j > 1)
-                        best = Math.min(best, dp[i - 1][j - 1]);
-
-                    if (a[i] <= b[j]) {
-                        for (int k = 1; k < j; k++) {
-                            if (dp[i - 1][k] == INF) continue;
-                            dp[i][j] = Math.min(dp[i][j],
-                                    dp[i - 1][k] + (j - k - 1));
-                        }
-                    }
+            for (int j = 0; j < n; j++) {
+                while (ptr < n && a[order[ptr]] <= b[j]) {
+                    heap.add(order[ptr]);
+                    ptr++;
                 }
+                orig[j] = heap.poll();
             }
 
-            if (dp[n][n] >= INF / 2)
-                System.out.println(-1);
-            else
-                System.out.println(dp[n][n]);
+            // inversion count via BIT, scanning right to left
+            bit = new int[n + 2];
+            long inv = 0;
+            for (int j = n - 1; j >= 0; j--) {
+                if (orig[j] - 1 >= 0) inv += query(orig[j] - 1);
+                update(orig[j]);
+            }
+
+            sb.append(inv).append('\n');
         }
+
+        System.out.print(sb);
     }
 }
