@@ -8,7 +8,7 @@ public class DuffAndMeat588A {
 
         int n = sc.nextInt();
 
-        long ans = 0;
+        long ans = 1;
         int minPrice = Integer.MAX_VALUE;
 
         for (int i = 0; i < n; i++) {
